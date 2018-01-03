@@ -90,8 +90,8 @@ inline bool ptDisSeg(const vec &p,const vec &q0,const vec &q1){
 }
 inline vec lineCutLineNode(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
 	double a1,b1,c1,a2,b2,c2,d;
-	a1=p1.x-p0.x; b1=p0.y-p1.y; c1=p0*p1;
-	a2=q1.x-q0.x; b2=q0.y-q1.y; c2=q0*q1;
+	a1=p1.y-p0.y; b1=p0.x-p1.x; c1=p0*p1;
+	a2=q1.y-q0.y; b2=q0.x-q1.x; c2=q0*q1;
 	d=a1*b2-a2*b1;
 	return vec((b2*c1-b1*c2)/d,(a1*c2-a2*c1)/d);
 }
