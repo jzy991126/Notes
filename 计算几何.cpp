@@ -61,7 +61,7 @@ inline bool segCutLine(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
 }
 inline bool segCutSeg(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
 	if(min(p0.x,p1.x)>max(q0.x,q1.x)||min(q0.x,q0.y)>max(p0.x,p1.x)
-		||min(p0.y,p1.y)>max(q0.y,q1.y)||min(q0.y,q1.y)>max(p0.y,p1.y)) return false; //øÏÀŸ≈≈≥‚ µ—È
+		||min(p0.y,p1.y)>max(q0.y,q1.y)||min(q0.y,q1.y)>max(p0.y,p1.y)) return false; //Âø´ÈÄüÊéíÊñ•ÂÆûÈ™å
 	return ((p0-q0)*(q1-q0))*((q1-q0)*(p1-q0))>=0&&((q0-p0)*(p1-p0))*((p1-p0)*(q1-p0))>=0;
 }
 inline bool rectInRect(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
@@ -84,9 +84,16 @@ inline bool ptDisLine(const vec &p,const vec &q0,const vec &q1){
 	return (p-q0)*(q1-q0)/len(q1-q0);
 }
 inline bool ptDisSeg(const vec &p,const vec &q0,const vec &q1){
-	if(!dcmp((p-q0)^(q1-q0))) return dis(p,q0); //“≤ø…“‘–¥≥…len(p-q0).. 
+	if(!dcmp((p-q0)^(q1-q0))) return dis(p,q0); //‰πüÂèØ‰ª•ÂÜôÊàêlen(p-q0).. 
 	if(!dcmp((p-q1)^(q0-q1))) return dis(p,q1);
 	return (p-q0)*(q1-q0)/len(q1-q0);
+}
+inline vec lineCutLineNode(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
+	double a1,b1,c1,a2,b2,c2,d;
+	a1=p1.x-p0.x; b1=p0.y-p1.y; c1=p0*p1;
+	a2=q1.x-q0.x; b2=q0.y-q1.y; c2=q0*q1;
+	d=a1*b2-a2*b1;
+	return vec((b2*c1-b1*c2)/d,(a1*c2-a2*c1)/d);
 }
 int main(){
 }
