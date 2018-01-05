@@ -12,48 +12,48 @@ struct point{
 }poly[202],pt;
 point operator -(const point &a,const point &b){return point(a.x-b.x,a.y-b.y);}
 double operator *(const point &a,const point &b){return a.x*b.y-a.y*b.x;}
-//Çóp0p1Á½µãÈ·¶¨µÄÖ±ÏßºÍÖ±Ïßy=y0µÄ½»µã 
+//æ±‚p0p1ä¸¤ç‚¹ç¡®å®šçš„ç›´çº¿å’Œç›´çº¿y=y0çš„äº¤ç‚¹ 
 double Cutx(const double &y0,const point &p0,const point &p1){
 	return ((y0-p0.y)*p1.x+(p1.y-y0)*p0.x)/(p1.y-p0.y);
 }
-//½»²æ·¨ÅĞ¶ÏµãÊÇ·ñÔÚ¶à±ßĞÎÄÚ
-//²ÎÊıp±íÊ¾µã pts±íÊ¾¶à±ßĞÎµÄ¶¥µã¼¯ pcnt±íÊ¾¶¥µãÊı 
+//äº¤å‰æ³•åˆ¤æ–­ç‚¹æ˜¯å¦åœ¨å¤šè¾¹å½¢å†…
+//å‚æ•°pè¡¨ç¤ºç‚¹ ptsè¡¨ç¤ºå¤šè¾¹å½¢çš„é¡¶ç‚¹é›† pcntè¡¨ç¤ºé¡¶ç‚¹æ•° 
 bool cn_ptInPoly(const point &p,point *pts,int pcnt){
 	pts[pcnt]=pts[0]; int cnt=0;
 	for(int i=1;i<=pcnt;++i)
 		if(((dcmp(pts[i].y-p.y)>0&&dcmp(pts[i-1].y-p.y)<1)		//#1
 			||(dcmp(pts[i].y-p.y)<1&&dcmp(pts[i-1].y-p.y>0)))	//#2(#3)
 			&&(dcmp(p.x-Cutx(p.y,pts[i],pts[i-1]))<0))			//#4
-			++cnt; //½»µã¼ÆÊıÒ»´Î 
-	return cnt&1; //½»µãÆæÊıÊ±ÔÚÄÚ, Å¼ÊıÊ±ÔÚÍâ.
+			++cnt; //äº¤ç‚¹è®¡æ•°ä¸€æ¬¡ 
+	return cnt&1; //äº¤ç‚¹å¥‡æ•°æ—¶åœ¨å†…, å¶æ•°æ—¶åœ¨å¤–.
 }
-//ÈÆÊı·¨È·¶¨µãÊÇ·ñÔÚ¶à±ßĞÎÄÚ 
+//ç»•æ•°æ³•ç¡®å®šç‚¹æ˜¯å¦åœ¨å¤šè¾¹å½¢å†… 
 bool wn_ptInPoly(const point &p,point *pts,int pcnt){
 	pts[pcnt]=pts[0]; int cnt=0;
 	for(int i=1;i<=pcnt;++i)
 		if((dcmp(pts[i].y-p.y)>0&&dcmp(pts[i-1].y-p.y)<1) 		//#1(#3) 
-			&&dcmp((p-pts[i-1])*(pts[i]-pts[i-1]))<0) 			//#4ÄæÊ±Õë 
+			&&dcmp((p-pts[i-1])*(pts[i]-pts[i-1]))<0) 			//#4é€†æ—¶é’ˆ 
 			++cnt; 
 		else if((dcmp(pts[i].y-p.y)<1&&dcmp(pts[i-1].y-p.y)>0)	//#2(#3) 
-			&&dcmp((p-pts[i-1])*(pts[i]-pts[i-1]))>0)			//#4Ë³Ê±Õë
+			&&dcmp((p-pts[i-1])*(pts[i]-pts[i-1]))>0)			//#4é¡ºæ—¶é’ˆ
 			--cnt;
-	return cnt;	//Ö»Òª²»Îª0 
+	return cnt;	//åªè¦ä¸ä¸º0 
 }
-//¶ş·ÖÈ·¶¨µãÊÇ·ñÔÚÍ¹¶à±ßĞÎÄÚ
-//P.S. ¼ÙÉèµãÒÔÄæÊ±Õë¸ø³ö 
+//äºŒåˆ†ç¡®å®šç‚¹æ˜¯å¦åœ¨å‡¸å¤šè¾¹å½¢å†…
+//P.S. å‡è®¾ç‚¹ä»¥é€†æ—¶é’ˆç»™å‡º 
 bool ptInConvexPoly(const point &p,point *pts,int pcnt){
-	point po=p-pts[0]; //±È½Ï³£ÓÃ,ËùÒÔ´æÒ»ÏÂ 
+	point po=p-pts[0]; //æ¯”è¾ƒå¸¸ç”¨,æ‰€ä»¥å­˜ä¸€ä¸‹ 
 	if(dcmp(po*(pts[1]-pts[0]))>0
 		||dcmp(po*(pts[pcnt-1]-pts[0]))<0)
-		return false;  //"¿ìËÙÅÅ³â"Ò»²¨
+		return false;  //"å¿«é€Ÿæ’æ–¥"ä¸€æ³¢
 	int l=1,r=pcnt-1;
 	while(r-l>1){
 		int mid=(l+r)>>1;
-		if(!dcmp(po*(pts[mid]-pts[0]))<0) //ÄæÊ±Õë·½Ïò
+		if(!dcmp(po*(pts[mid]-pts[0]))<0) //é€†æ—¶é’ˆæ–¹å‘
 			l=mid;
 		else r=mid;
 	}
-	return dcmp((p-pts[l])*(pts[l+1]-pts[l]))<0; //ÔÚ±ßµÄ×ó²à 
+	return dcmp((p-pts[l])*(pts[l+1]-pts[l]))<0; //åœ¨è¾¹çš„å·¦ä¾§ 
 } 
 int main(){
 }
