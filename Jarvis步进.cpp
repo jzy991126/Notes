@@ -25,7 +25,9 @@ void jarvisMarch(point *p,int n){
 	do{
 		int h2=-1;
 		for(int i=0;i<n;++i)
-			if(h!=i&&(h2<0||dcmp((p[i]-p[h])*(p[h2]-p[h]))>0))
+			if(h!=i&&(h2<0||dcmp((p[i]-p[h])*(p[h2]-p[h]))>0
+				||(!dcmp((p[i]-p[h])*(p[h2]-p[h]))
+				&&dcmp(len(p[h2]-p[h])-len(p[i]-p[h]))<0)))
 				h2=i;
 		po[++tot]=h=h2;
 	}while(h!=mi);
@@ -34,9 +36,12 @@ int main(){
 	int n;scanf("%d",&n); double ans=0,mx=1e9;
 	for(int i=0;i<n;++i){
 		scanf("%lf%lf",&p[i].x,&p[i].y);
-		if(p[i].x<mx) mx=p[i].x,mi=i;
+		if(dcmp(p[i].x-mx)<0)
+			mx=p[i].x,mi=i;
 	}
 	jarvisMarch(p,n);
+	for(int i=1;i<=tot;++i)
+		printf("%d ",po[i]);
 	for(int i=1;i<tot;++i)
 		ans+=len(p[po[i]]-p[po[i+1]]);
 	printf("%.2lf",ans+len(p[po[tot]]-p[po[1]]));
