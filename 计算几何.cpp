@@ -83,10 +83,10 @@ inline bool cirInCir(const vec &o1,const double &r1,const vec &o2,const double &
 inline bool ptDisLine(const vec &p,const vec &q0,const vec &q1){
 	return (p-q0)*(q1-q0)/len(q1-q0);
 }
-inline bool ptDisSeg(const vec &p,const vec &q0,const vec &q1){
-	if(!dcmp((p-q0)^(q1-q0))) return dis(p,q0); //也可以写成len(p-q0).. 
-	if(!dcmp((p-q1)^(q0-q1))) return dis(p,q1);
-	return (p-q0)*(q1-q0)/len(q1-q0);
+inline double ptDisSeg(const point &p,const point &a,const point &b){
+	if(dcmp((p-a)^(b-a))<0) return dist(p,a);
+	if(dcmp((p-b)^(a-b))<0) return dist(p,b);
+	return fabs((p-a)*(b-a))/dist(b,a);
 }
 inline vec lineCutLineNode(const vec &p0,const vec &p1,const vec &q0,const vec &q1){
 	double a1,b1,c1,a2,b2,c2,d;
