@@ -7,4 +7,4 @@ maybe download the markdown file to read is a good idea.
 
 actually it can also be found in my blog.
 
-the entrance: [Click here..](https://blog.csdn.net/enzymii)
+the entrance: [Click here..](http://blog.csdn.net/enzymii)
