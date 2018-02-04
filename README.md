@@ -8,3 +8,4 @@ maybe download the markdown file to read is a good idea.
 actually it can also be found in my blog.
 
 the entrance: [Click here..](http://blog.csdn.net/enzymii)
+or maybe a new address: [Here!](http://www.cnblogs.com/enzymii/p/8413465.html)
